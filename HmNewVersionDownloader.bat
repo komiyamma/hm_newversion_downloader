@@ -1,7 +1,8 @@
 
 cd /d "%~dp0"
 del /f /q "DownloadDir\*"
-python HmNewVersionDownloader.py
+del HmSigned.zip
+HmNewVersionDownloader.exe
 call HmNewVersionUnpacking.bat
 ..\HmAllKill\HmAllKill.exe
 xcopy "DownloadDir\*.*" "..\*" /s /e /y
