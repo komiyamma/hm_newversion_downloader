@@ -1,4 +1,5 @@
-# hm_newversion_download_and_replacer
+# HmNwerVersionDownloader
+
 秀丸の最新バージョンをダウンロードと、自動で解凍して、自動で今の秀丸へと差し替える。
 最新整数32bitβ版をターゲットとする。
 β板がない時だけ正式版がターゲット

@@ -6,6 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FD405ACF-B3B7-413C-A884-93DD86C10DC6}</ProjectGuid>
     <OutputType>Exe</OutputType>
+    <LangVersion>Latest</LangVersion>
     <RootNamespace>HmNewVersionDownloader</RootNamespace>
     <AssemblyName>HmNewVersionDownloader</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
