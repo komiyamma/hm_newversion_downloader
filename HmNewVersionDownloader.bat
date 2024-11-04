@@ -1,9 +1,14 @@
 
 cd /d "%~dp0"
+
 del /f /q "DownloadDir\*"
 del HmSigned.zip
+
 HmNewVersionDownloader.exe
-call HmNewVersionUnpacking.bat
+
+del /f /q "DownloadDir\*"
+".\7z.exe" x "HmSigned.zip" -o"DownloadDir"
+
 ..\HmAllKill\HmAllKill.exe
 xcopy "DownloadDir\*.*" "..\*" /s /e /y
 
