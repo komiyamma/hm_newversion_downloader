@@ -14,20 +14,18 @@ public partial class Program
             throw new Exception("秀丸フォルダーが無い");
         }
 
-        if ( ! File.Exists(Path.Combine(hm_folder, "hidemaru.exe")) )
+        if (!File.Exists(Path.Combine(hm_folder, "hidemaru.exe")))
         {
-            throw new Exception("秀丸ファイルのアップデート先が無い");
+            throw new Exception("アップデート先は秀丸フォルダではない");
         }
 
-        // 全ての秀丸の終了
-        killHidemaruProcesses();
-
-        updateHidemaruFiles(archive_extracted_folder, hm_folder);
+        copyFiles(archive_extracted_folder, hm_folder);
     }
 
     // Aディレクトリのファイル群をBディレクトリに上書きコピーする
-    static void updateHidemaruFiles(string srcDirectory, string dstDirectory)
+    static void copyFiles(string srcDirectory, string dstDirectory)
     {
+        bool isFail = true;
         foreach (string file in Directory.GetFiles(srcDirectory))
         {
             string filename = Path.GetFileName(file);
@@ -36,12 +34,18 @@ public partial class Program
             {
                 File.Copy(file, dest, true);
             }
-            catch
+            catch(Exception e)
             {
+                isFail = true;
                 Console.WriteLine($"ファイルのコピーに失敗: {file}");
             }
         }
 
+        if (isFail)
+        {
+            Console.WriteLine("コピーは失敗したので管理者権限で再度実行を試みる");
+            updateHidemaruFilesRunAsAdmin(srcDirectory, dstDirectory);
+        }
         Console.WriteLine($"ファイルのコピーが完了: {srcDirectory} -> {dstDirectory}");
     }
 

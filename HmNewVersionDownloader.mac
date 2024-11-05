@@ -1,1 +1,1 @@
-﻿run @"HmNewVersionDownloader\HmNewVersionDownloader.bat";
+﻿run sprintf("""HmNewVersionDownloader\HmNewVersionDownloader.bat "%s" "%s\hidemaru.exe" """, hidemarudir, hidemarudir);

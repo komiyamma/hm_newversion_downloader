@@ -23,6 +23,9 @@ public partial class Program
 
         try
         {
+            // 全ての秀丸の終了
+            killHidemaruProcesses();
+
             // 対象となるexeのURLの取得
             string download_exe_url = getTargetExeUrl();
 
@@ -32,15 +35,18 @@ public partial class Program
             // ダウンロードしたものを展開するためのフォルダを作成
             // 作成済みならフォルダ内を空にする
             normalizeTempFolder();
+            Console.WriteLine("フォルダを正規化します。");
 
             // ダウンロードしたものを解凍
             executeSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
+            Console.WriteLine("ファイルを解凍します。");
 
             if (args.Length > 0)
             {
                 // 引数がない場合は、秀丸エディタのフォルダを探す
                 hm_folder = args[0];
 
+                Console.WriteLine("ファイルをコピーします。");
                 updateHidemaruFiles(hm_folder);
 
                 normalizeTempFolder();

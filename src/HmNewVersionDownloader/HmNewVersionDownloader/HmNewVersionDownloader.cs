@@ -14,7 +14,7 @@ public partial class Program
 
             // Webページの取得
             string htmlContent = client.GetStringAsync("https://hide.maruo.co.jp/software/hidemaru.html").Result;
-
+            Console.WriteLine("Webページの取得が完了しました。");
             // beta版の状況を取得
 
             // 正規表現を使ってURLを抽出
@@ -48,7 +48,6 @@ public partial class Program
         using (WebClient webClient = new WebClient())
         {
             webClient.DownloadFile(url, filename);
-
             Console.WriteLine($"ファイル '{filename}' をダウンロードしました。");
         }
     }

@@ -1,10 +1,8 @@
 pushd "%~dp0"
-cd /d "%~dp0"
+HmNewVersionDownloader.exe "%~1"
 
-HmNewVersionDownloader.exe
-
-cd ..\
+pushd "%~1"
 call hidemaru.icon.res.bat
 
 start hidemaru.exe
-popd
+
