@@ -50,7 +50,10 @@ public partial class Program
             Console.WriteLine("コピーは失敗したので管理者権限で再度実行を試みる");
             updateHidemaruFilesRunAsAdmin(srcDirectory, dstDirectory);
         }
-        Console.WriteLine($"ファイルのコピーが完了: {srcDirectory} -> {dstDirectory}");
+        else
+        {
+            Console.WriteLine($"ファイルのコピーが完了: {srcDirectory} -> {dstDirectory}");
+        }
     }
 
 }
