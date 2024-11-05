@@ -1,1 +1,1 @@
-﻿run sprintf("""HmNewVersionDownloader\HmNewVersionDownloader.bat "%s" "%s\hidemaru.exe" """, hidemarudir, hidemarudir);
+﻿run sprintf("""%s\HmNewVersionDownloader.bat "%s" """, currentmacrodirectory, hidemarudir);

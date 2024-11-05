@@ -25,7 +25,7 @@ public partial class Program
     // Aディレクトリのファイル群をBディレクトリに上書きコピーする
     static void copyFiles(string srcDirectory, string dstDirectory)
     {
-        bool isFail = true;
+        int failCnt = 0;
         foreach (string file in Directory.GetFiles(srcDirectory))
         {
             string filename = Path.GetFileName(file);
@@ -36,12 +36,16 @@ public partial class Program
             }
             catch(Exception e)
             {
-                isFail = true;
+                failCnt++;
+                if (failCnt > 3)
+                {
+                    break;
+                }
                 Console.WriteLine($"ファイルのコピーに失敗: {file}");
             }
         }
 
-        if (isFail)
+        if (failCnt > 0)
         {
             Console.WriteLine("コピーは失敗したので管理者権限で再度実行を試みる");
             updateHidemaruFilesRunAsAdmin(srcDirectory, dstDirectory);
