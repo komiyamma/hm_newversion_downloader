@@ -20,6 +20,23 @@ public partial class Program
 
     public static void Main(string[] args)
     {
+        // 秀丸が存在するフォルダの格納
+        if (args.Length >= 1)
+        {
+            // 最初の引数は秀丸エディタのフォルダ
+            hm_folder = args[0];
+        }
+        else
+        {
+            return;
+        }
+
+        // ダウンロードする秀丸のexeの正規表現
+        if (args.Length >= 3)
+        {
+            hm_exe_beta_regexp = "(" + args[1] + ")";
+            hm_exe_release_regexp = "(" + args[2] + ")";
+        }
 
         try
         {
@@ -41,16 +58,11 @@ public partial class Program
             executeSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
             Console.WriteLine("ファイルを解凍します。");
 
-            if (args.Length > 0)
-            {
-                // 引数がない場合は、秀丸エディタのフォルダを探す
-                hm_folder = args[0];
+            Console.WriteLine("ファイルをコピーします。");
+            updateHidemaruFiles(hm_folder);
 
-                Console.WriteLine("ファイルをコピーします。");
-                updateHidemaruFiles(hm_folder);
-
-                normalizeTempFolder();
-            }
+            Console.WriteLine("解凍ファイルを削除します。");
+            normalizeTempFolder();
         }
         catch (Exception ex)
         {

@@ -1,1 +1,25 @@
-﻿run sprintf("""%s\HmNewVersionDownloader.bat "%s" """, currentmacrodirectory, hidemarudir);
+﻿jsmode @"\" + currentmacrodirectory;
+
+js {
+  var include_beta_download = false;
+
+  var is_hidemaru_64bit = platform() & 0x00080000;
+
+  var is_hidemaru_32bit = !is_hidemaru_64bit;
+
+  var is_hidemaru_float = platform() & 0x00400000;
+
+  var is_hidemaru_int = !is_hidemaru_float;
+
+  var release_regexp = "bin3?/hm" + (is_hidemaru_float ? "float" : "") + "[0-9]+" + (is_hidemaru_64bit ? "_x64" : "") + "_signed\\.exe";
+
+  var betaver_regexp = "bin3?/hm" + (is_hidemaru_float ? "float" : "") + "[0-9]+b[0-9]+" + (is_hidemaru_64bit ? "_x64" : "") + "_signed\\.exe";
+
+  // βが含まれないのであれば、β正規表現はリリース正規表現で上書きしておく
+  if (!include_beta_download) {
+     betaver_regexp = release_regexp;
+  }
+  var command_line = sprintf('%s\\HmNewVersionDownloader.bat "%s" "%s" "%s"', currentmacrodirectory(), hidemarudir(), betaver_regexp, release_regexp);
+
+  run(command_line);
+}

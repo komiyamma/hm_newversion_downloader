@@ -6,6 +6,13 @@ using System.Text.RegularExpressions;
 
 public partial class Program
 {
+    // 対象の秀丸の正規表現
+    static string hm_exe_beta_regexp = @"aaaaaaaaaaaaaaaaaaa";
+
+    // 対象の秀丸の正規表現
+    static string hm_exe_release_regexp = @"bbbbbbbbbbbbbbbbbbb";
+
+
     static string getTargetExeUrl()
     {
         // HTTPリクエストの作成
@@ -18,7 +25,8 @@ public partial class Program
             // beta版の状況を取得
 
             // 正規表現を使ってURLを抽出
-            MatchCollection matches_beta = Regex.Matches(htmlContent, @"(bin3?/hm\d+b\d+_signed\.exe)");
+            MatchCollection matches_beta = Regex.Matches(htmlContent, hm_exe_beta_regexp);
+            Console.WriteLine("正規表現:" + hm_exe_beta_regexp);
 
             // URLのリストを作成する
             List<string> urls = new List<string>();
@@ -28,7 +36,9 @@ public partial class Program
             }
 
             // 正規表現を使ってURLを抽出
-            MatchCollection matches_release = Regex.Matches(htmlContent, @"(bin/hm\d+_signed\.exe)");
+            MatchCollection matches_release = Regex.Matches(htmlContent, hm_exe_release_regexp);
+            Console.WriteLine("正規表現:" + hm_exe_release_regexp);
+
             foreach (Match match in matches_release)
             {
                 urls.Add(new Uri(new Uri("https://hide.maruo.co.jp/software/"), match.Groups[1].Value).AbsoluteUri);
