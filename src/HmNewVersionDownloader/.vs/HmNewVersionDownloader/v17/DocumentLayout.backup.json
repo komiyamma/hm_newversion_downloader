@@ -3,7 +3,10 @@
   "WorkspaceRootPath": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|c:\\usr\\hidemaru\\hmnewversiondownloader\\src\\hmnewversiondownloader\\hmnewversiondownloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|HmNewVersionDownloader||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -31,7 +34,7 @@
       "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\killhidemaruprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|HmNewVersionDownloader||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|c:\\usr\\hidemaru\\hmnewversiondownloader\\src\\hmnewversiondownloader\\hmnewversiondownloader\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,7 +44,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -49,7 +52,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "XCopy.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\XCopy.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\XCopy.cs",
@@ -61,7 +64,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UpdateHidemaruFiles.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\UpdateHidemaruFiles.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\UpdateHidemaruFiles.cs",
@@ -73,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ExtractArchieveFile.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\ExtractArchieveFile.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\ExtractArchieveFile.cs",
@@ -85,7 +88,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ArchiveTempFolder.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\ArchiveTempFolder.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\ArchiveTempFolder.cs",
@@ -97,20 +100,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\Program.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\Program.cs",
               "ToolTip": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\Program.cs",
               "RelativeToolTip": "HmNewVersionDownloader\\Program.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAiwCUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-04T23:48:33.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-04T23:48:33.529Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "KillHidemaruProcess.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\KillHidemaruProcess.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\KillHidemaruProcess.cs",
@@ -122,18 +124,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "HmNewVersionDownloader",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
               "ToolTip": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
               "RelativeToolTip": "HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-09-30T18:45:55.347Z"
+              "WhenOpened": "2024-09-30T18:45:55.347Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "HmNewVersionDownloader.cs",
               "DocumentMoniker": "C:\\usr\\hidemaru\\HmNewVersionDownloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\HmNewVersionDownloader.cs",
