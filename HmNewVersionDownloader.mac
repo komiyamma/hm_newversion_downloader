@@ -1,4 +1,11 @@
-﻿jsmode @"\" + currentmacrodirectory;
+﻿/*
+ * HmNewVersionDownloader v1.0.0.1
+ *
+ * Copyright (c) 2024 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+jsmode @"\" + currentmacrodirectory;
 
 js {
   var include_beta_download = true;
