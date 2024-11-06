@@ -1,7 +1,7 @@
 ﻿jsmode @"\" + currentmacrodirectory;
 
 js {
-  var include_beta_download = false;
+  var include_beta_download = true;
 
   var is_hidemaru_64bit = platform() & 0x00080000;
 
