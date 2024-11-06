@@ -7,8 +7,6 @@ C:\Users\admin\source\repos\HmNewVersionDownloader\HmNewVersionDownloader\obj\Re
 C:\Users\admin\source\repos\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.pdb
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\HmNewVersionDownloader.exe.config
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\HmNewVersionDownloader.exe
-C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\HmNewVersionDownloader.pdb
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.csproj.AssemblyReference.cache
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.csproj.CoreCompileInputs.cache
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.exe
-C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.pdb

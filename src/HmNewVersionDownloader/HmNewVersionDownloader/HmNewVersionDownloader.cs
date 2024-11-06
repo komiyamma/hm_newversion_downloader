@@ -12,6 +12,10 @@ public partial class Program
     // 対象の秀丸の正規表現
     static string hm_exe_release_regexp = @"bbbbbbbbbbbbbbbbbbb";
 
+    static string removeHtmlComments(string html)
+    {
+        return Regex.Replace(html, @"<!--.*?-->", "", RegexOptions.Singleline);
+    }
 
     static string getTargetExeUrl()
     {
@@ -21,6 +25,7 @@ public partial class Program
 
             // Webページの取得
             string htmlContent = client.GetStringAsync("https://hide.maruo.co.jp/software/hidemaru.html").Result;
+            htmlContent = removeHtmlComments(htmlContent);
             Console.WriteLine("Webページの取得が完了しました。");
             // beta版の状況を取得
 
