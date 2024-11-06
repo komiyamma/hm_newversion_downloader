@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public partial class Program
 {
-    private static void updateHidemaruFiles(string hm_folder)
+    private static void UpdateHidemaruFiles(string hm_folder)
     {
         if (String.IsNullOrEmpty(hm_folder))
         {
@@ -19,11 +19,11 @@ public partial class Program
             throw new Exception("アップデート先は秀丸フォルダではない");
         }
 
-        copyFiles(archive_extracted_folder, hm_folder);
+        CopyFiles(archive_extracted_folder, hm_folder);
     }
 
     // Aディレクトリのファイル群をBディレクトリに上書きコピーする
-    static void copyFiles(string srcDirectory, string dstDirectory)
+    static void CopyFiles(string srcDirectory, string dstDirectory)
     {
         int failCnt = 0;
         foreach (string file in Directory.GetFiles(srcDirectory))
@@ -41,14 +41,14 @@ public partial class Program
                 {
                     break;
                 }
-                Console.WriteLine($"ファイルのコピーに失敗: {file}");
+                Console.WriteLine($"ファイルのコピーに失敗: {file} {e.Message}");
             }
         }
 
         if (failCnt > 0)
         {
             Console.WriteLine("コピーは失敗したので管理者権限で再度実行を試みる");
-            updateHidemaruFilesRunAsAdmin(srcDirectory, dstDirectory);
+            UpdateHidemaruFilesRunAsAdmin(srcDirectory, dstDirectory);
         }
         else
         {

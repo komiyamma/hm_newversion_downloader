@@ -12,7 +12,7 @@ public partial class Program
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
-    static void updateHidemaruFilesRunAsAdmin(string sourcePath, string destinationPath)
+    static void UpdateHidemaruFilesRunAsAdmin(string sourcePath, string destinationPath)
     {
         // 管理者権限が必要かどうかを確認します。
         // 管理者として実行するためのプロセスを開始します。

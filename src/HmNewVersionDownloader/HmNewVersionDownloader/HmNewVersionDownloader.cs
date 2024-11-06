@@ -12,12 +12,12 @@ public partial class Program
     // 対象の秀丸の正規表現
     static string hm_exe_release_regexp = @"bbbbbbbbbbbbbbbbbbb";
 
-    static string removeHtmlComments(string html)
+    static string RemoveHtmlComments(string html)
     {
         return Regex.Replace(html, @"<!--.*?-->", "", RegexOptions.Singleline);
     }
 
-    static string getTargetExeUrl()
+    static string GetTargetExeUrl()
     {
         // HTTPリクエストの作成
         using (HttpClient client = new HttpClient())
@@ -25,7 +25,7 @@ public partial class Program
 
             // Webページの取得
             string htmlContent = client.GetStringAsync("https://hide.maruo.co.jp/software/hidemaru.html").Result;
-            htmlContent = removeHtmlComments(htmlContent);
+            htmlContent = RemoveHtmlComments(htmlContent);
             Console.WriteLine("Webページの取得が完了しました。");
             // beta版の状況を取得
 
@@ -58,7 +58,7 @@ public partial class Program
         }
     }
 
-    private static void downloadTargetFile(string url, string filename)
+    private static void DownloadTargetFile(string url, string filename)
     {
         using (WebClient webClient = new WebClient())
         {

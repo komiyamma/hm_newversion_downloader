@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public partial class Program
 {
-    private static void killHidemaruProcesses()
+    private static void KillHidemaruProcesses()
     {
         System.Diagnostics.Process[] ps1 = System.Diagnostics.Process.GetProcessesByName("hidemaru");
 

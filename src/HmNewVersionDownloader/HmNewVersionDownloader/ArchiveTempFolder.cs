@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public partial class Program
 {
 
-    private static void normalizeTempFolder()
+    private static void NormalizeTempFolder()
     {
         try
         {

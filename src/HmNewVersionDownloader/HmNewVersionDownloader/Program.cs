@@ -41,28 +41,28 @@ public partial class Program
         try
         {
             // 全ての秀丸の終了
-            killHidemaruProcesses();
+            KillHidemaruProcesses();
 
             // 対象となるexeのURLの取得
-            string download_exe_url = getTargetExeUrl();
+            string download_exe_url = GetTargetExeUrl();
 
             // 対象のファイルをダウンロード
-            downloadTargetFile(download_exe_url, archive_fullpath);
+            DownloadTargetFile(download_exe_url, archive_fullpath);
 
             // ダウンロードしたものを展開するためのフォルダを作成
             // 作成済みならフォルダ内を空にする
-            normalizeTempFolder();
+            NormalizeTempFolder();
             Console.WriteLine("フォルダを正規化します。");
 
             // ダウンロードしたものを解凍
-            executeSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
+            ExecuteSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
             Console.WriteLine("ファイルを解凍します。");
 
             Console.WriteLine("ファイルをコピーします。");
-            updateHidemaruFiles(hm_folder);
+            UpdateHidemaruFiles(hm_folder);
 
             Console.WriteLine("解凍ファイルを削除します。");
-            normalizeTempFolder();
+            NormalizeTempFolder();
         }
         catch (Exception ex)
         {

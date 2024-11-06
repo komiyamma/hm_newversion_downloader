@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public partial class Program
 {
-    public static int executeSevenZip(string sevenZipPath, string archivePath, string outputDirectory)
+    public static int ExecuteSevenZip(string sevenZipPath, string archivePath, string outputDirectory)
     {
         // 7-Zip実行ファイルのパス、アーカイブファイルのパス、出力ディレクトリのパスをチェック
         if (string.IsNullOrEmpty(sevenZipPath) || !System.IO.File.Exists(sevenZipPath))
