@@ -1,5 +1,12 @@
-# HmNwerVersionDownloader
+# HmNewVersionDownloader
+
+![HmNewVersionDownloader v2.0.0](https://img.shields.io/badge/HmNewVersionDownloader-v2.0.0-6479ff.svg)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 秀丸の最新バージョンをダウンロードと、自動で解凍して、自動で今の秀丸へと差し替える。
-最新整数32bitβ版をターゲットとする。
-β板がない時だけ正式版がターゲット
+・整数 32bit (Beta/Release)
+・整数 64bit (Beta/Release)
+・浮動小数 32bit (Beta/Release)
+・浮動小数 64bit (Beta/Release)
+
+を対象とする。
