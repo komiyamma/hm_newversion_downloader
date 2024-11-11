@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 
 public partial class Program
 {
@@ -57,6 +53,8 @@ public partial class Program
             // ダウンロードしたものを解凍
             ExecuteSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
             Console.WriteLine("ファイルを解凍します。");
+
+            ReplaceIcon();
 
             Console.WriteLine("ファイルをコピーします。");
             UpdateHidemaruFiles(hm_folder);
