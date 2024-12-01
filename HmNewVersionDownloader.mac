@@ -1,5 +1,5 @@
 ﻿/*
- * HmNewVersionDownloader v1.2.0.1
+ * HmNewVersionDownloader v1.2.0.2
  *
  * Copyright (c) 2024 Akitsugu Komiyama
  * under the MIT License
@@ -28,5 +28,5 @@ js {
   }
   var command_line = sprintf('"%s\\HmNewVersionDownloader.bat" "%s" "%s" "%s"', currentmacrodirectory(), hidemarudir(), betaver_regexp, release_regexp);
 
-  run(command_line);
+  var pi = hidemaru.runProcess(command_line, ".", "gui", "sjis");
 }
