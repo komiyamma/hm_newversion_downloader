@@ -34,6 +34,9 @@ public partial class Program
             hm_exe_release_regexp = "(" + args[2] + ")";
         }
 
+        // 0.5秒待つ
+        System.Threading.Thread.Sleep(500);
+
         try
         {
             // 全ての秀丸の終了

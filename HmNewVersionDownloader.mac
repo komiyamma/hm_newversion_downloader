@@ -1,5 +1,5 @@
 ﻿/*
- * HmNewVersionDownloader v1.2.0.2
+ * HmNewVersionDownloader v1.2.0.3
  *
  * Copyright (c) 2024 Akitsugu Komiyama
  * under the MIT License
@@ -30,3 +30,5 @@ js {
 
   var pi = hidemaru.runProcess(command_line, ".", "gui", "sjis");
 }
+
+quitall;

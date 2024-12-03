@@ -10,3 +10,8 @@ C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDo
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.csproj.AssemblyReference.cache
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.csproj.CoreCompileInputs.cache
 C:\usr\hidemaru\HmNewVersionDownloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.exe
+G:\repogitory\hm_newversion_downloader\src\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\HmNewVersionDownloader.exe.config
+G:\repogitory\hm_newversion_downloader\src\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\HmNewVersionDownloader.exe
+G:\repogitory\hm_newversion_downloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.csproj.AssemblyReference.cache
+G:\repogitory\hm_newversion_downloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.csproj.CoreCompileInputs.cache
+G:\repogitory\hm_newversion_downloader\src\HmNewVersionDownloader\HmNewVersionDownloader\obj\Release\HmNewVersionDownloader.exe
