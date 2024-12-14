@@ -1,6 +1,6 @@
 # HmNewVersionDownloader
 
-![HmNewVersionDownloader v1.2.0](https://img.shields.io/badge/HmNewVersionDownloader-v1.2.0-6479ff.svg)
+![HmNewVersionDownloader v1.3.0](https://img.shields.io/badge/HmNewVersionDownloader-v1.3.0-6479ff.svg)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 - https://秀丸マクロ.net/?page=nobu_tool_hm_new_version_downloader
