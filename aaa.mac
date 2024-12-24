@@ -56,7 +56,6 @@ function downloadHidemaruEditorPage(saveFileFullPath) {
 }
 
 
-// downloadHidemaruEditorPage より先に定義が済んでいる必要あり
 function onDownloadCompleteHidemaruEditorPage() {
 	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
         writeOutputPane("curlによるページ保存に成功しました。");
@@ -66,16 +65,6 @@ function onDownloadCompleteHidemaruEditorPage() {
         writeOutputPane("curlによるページ保存に失敗しました。");
     }
 }
-
-debuginfo(2);
-function onDownloadCompleteHidemaruEditorInstaller() {
-	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
-        writeOutputPane("curlによるインストーラー取得に成功しました。");
-    } else {
-        writeOutputPane("curlによるインストーラー取得に失敗しました。");
-    }
-}
-
 
 function getHidemaruFileUrlFromPage(hidemaruEditorPageFileFullPath) {
    var pageText = hidemaru.loadTextFile(hidemaruEditorPageFileFullPath);
@@ -135,6 +124,13 @@ function downloadHidemaruFileFromUrl(hidemaruFileUrl) {
     curlProcess.onClose(onDownloadCompleteHidemaruEditorInstaller);
 }
 
+function onDownloadCompleteHidemaruEditorInstaller() {
+	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
+        writeOutputPane("curlによるインストーラー取得に成功しました。");
+    } else {
+        writeOutputPane("curlによるインストーラー取得に失敗しました。");
+    }
+}
 
 // アウトプット枠メッセージ用
 function writeOutputPane(text) {
