@@ -10,7 +10,7 @@ jsmode @"\" + currentmacrofilename;
 js {
 
 
-var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
+var include_beta_download = false;  // 秀丸エディタβ版を取得対象に含むかどうか
 
 var show_release_note = false;     // 秀丸エディタを更新した後、関連するリリース情報を表示するかどうか
 

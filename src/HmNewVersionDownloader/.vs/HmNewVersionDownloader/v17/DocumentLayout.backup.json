@@ -3,42 +3,39 @@
   "WorkspaceRootPath": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|HmNewVersionDownloader||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\hmnewversiondownloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\hmnewversiondownloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|g:\\repogitory\\hm_newversion_downloader\\src\\hmnewversiondownloader\\hmnewversiondownloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\ironreplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\ironreplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\hmnewversiondownloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\hmnewversiondownloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\killhidemaruprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\killhidemaruprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\archivetempfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\archivetempfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\updatehidemarufiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\updatehidemarufiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\xcopy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\xcopy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\killhidemaruprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\killhidemaruprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\extractarchievefile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\extractarchievefile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\archivetempfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\archivetempfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|HmNewVersionDownloader||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|g:\\repogitory\\hm_newversion_downloader\\src\\hmnewversiondownloader\\hmnewversiondownloader\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\ironreplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\ironreplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\hmnewversiondownloader\\xcopy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD405ACF-B3B7-413C-A884-93DD86C10DC6}|HmNewVersionDownloader\\HmNewVersionDownloader.csproj|solutionrelative:hmnewversiondownloader\\xcopy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,7 +45,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -56,23 +53,14 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "HmNewVersionDownloader",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
-              "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.csproj*",
-              "RelativeToolTip": "HmNewVersionDownloader\\HmNewVersionDownloader.csproj*",
+              "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
+              "RelativeToolTip": "HmNewVersionDownloader\\HmNewVersionDownloader.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-03T10:07:58.041Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+              "WhenOpened": "2024-12-03T10:07:58.041Z"
             },
             {
               "$type": "Document",
@@ -82,14 +70,18 @@
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\Program.cs",
               "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\Program.cs",
               "RelativeToolTip": "HmNewVersionDownloader\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-04T23:48:33.529Z",
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "IronReplacer.cs",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\IronReplacer.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\IronReplacer.cs",
@@ -101,7 +93,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "XCopy.cs",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\XCopy.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\XCopy.cs",
@@ -113,37 +105,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "UpdateHidemaruFiles.cs",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\UpdateHidemaruFiles.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\UpdateHidemaruFiles.cs",
               "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\UpdateHidemaruFiles.cs",
               "RelativeToolTip": "HmNewVersionDownloader\\UpdateHidemaruFiles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAwAoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T01:08:48.93Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "ExtractArchieveFile.cs",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\ExtractArchieveFile.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\ExtractArchieveFile.cs",
               "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\ExtractArchieveFile.cs",
               "RelativeToolTip": "HmNewVersionDownloader\\ExtractArchieveFile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAwAsAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T00:22:03.798Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "ArchiveTempFolder.cs",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\ArchiveTempFolder.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\ArchiveTempFolder.cs",
               "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\ArchiveTempFolder.cs",
               "RelativeToolTip": "HmNewVersionDownloader\\ArchiveTempFolder.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T00:04:55.147Z"
             },
@@ -161,15 +153,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "HmNewVersionDownloader.cs",
               "DocumentMoniker": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.cs",
               "RelativeDocumentMoniker": "HmNewVersionDownloader\\HmNewVersionDownloader.cs",
               "ToolTip": "G:\\repogitory\\hm_newversion_downloader\\src\\HmNewVersionDownloader\\HmNewVersionDownloader\\HmNewVersionDownloader.cs",
               "RelativeToolTip": "HmNewVersionDownloader\\HmNewVersionDownloader.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAwCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-30T18:45:10.743Z"
+              "WhenOpened": "2024-09-30T18:45:10.743Z",
+              "EditorCaption": ""
             }
           ]
         }

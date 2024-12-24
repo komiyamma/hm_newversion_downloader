@@ -1,0 +1,137 @@
+﻿jsmode "JScript\\" + currentmacrofilename;
+js {
+
+
+var include_beta_download = false;  // 秀丸エディタβ版を取得対象に含むかどうか
+
+
+debuginfo(2);
+
+var platFormAttribute = platform();
+
+var fso = createobject("Scripting.FileSystemObject");
+
+var tempFolder = getUserTempFolder();
+
+var saveHidemaruEditorPageFileFullPath = tempFolder + "\\hidemaru_editor_page.html";
+{
+	deletefile(saveHidemaruEditorPageFileFullPath);
+	if (existfile(saveHidemaruEditorPageFileFullPath)) {
+	   writeOutputPane("ファイルがロックされています");
+	}
+}
+
+var saveHidemaruEditorInstallerFileFullPath = tempFolder + "\\hidemaru_editor_installer.zip";
+
+
+function getUserTempFolder() {
+    var tempFolder = fso.GetSpecialFolder(2).Path;
+    return(tempFolder);
+}
+
+
+var curlProcess = null; // インスタンスが消えると、非同期のonClose段階で元オブジェクトがなくなるので維持するため、グローバルに
+function downloadHidemaruEditorPage(saveFileFullPath) {
+    var command = 'curl "http://hide.maruo.co.jp/software/hidemaru.html" -o "' + saveFileFullPath + '"';
+	curlProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
+    if (!curlProcess) {
+		writeOutputPane("curlが実行できませんでした。");
+        return;
+    }
+
+    curlProcess.onClose(onDownloadCompleteHidemaruEditorPage);
+}
+
+
+// downloadHidemaruEditorPage より先に定義が済んでいる必要あり
+function onDownloadCompleteHidemaruEditorPage() {
+	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
+        writeOutputPane("curlによるファイル保存に成功しました。");
+        var hidemaruFileUrl = getHidemaruFileUrlFromPage(saveHidemaruEditorPageFileFullPath);
+        downloadHidemaruFileFromUrl(hidemaruFileUrl);
+    } else {
+        writeOutputPane("curlによるファイル保存に失敗しました。");
+    }
+}
+
+debuginfo(2);
+function onDownloadCompleteHidemaruEditorInstaller() {
+    console.log("onDownloadCompleteHidemaruEditorInstaller");
+}
+
+
+function getHidemaruFileUrlFromPage(hidemaruEditorPageFileFullPath) {
+   var pageText = hidemaru.loadTextFile(hidemaruEditorPageFileFullPath);
+
+   var targetHmFileRegexp = getTargetHidemaruFileRegexp();
+   if (targetHmFileRegexp.beta) {
+       var matchBeta = pageText.match(targetHmFileRegexp.beta);
+   }
+   
+   if (targetHmFileRegexp.release) {
+       var matchRelease = pageText.match(targetHmFileRegexp.release);
+   }
+
+   // デフォルトはβ版
+   var targetFileUrl = matchBeta;
+   // β版が存在しないか、もしくは、βを含めないという指定がある場合
+   if (!matchBeta || !include_beta_download) {
+       targetFileUrl = matchRelease;
+   }
+
+   return targetFileUrl;
+}
+
+function getTargetHidemaruFileRegexp() {
+
+	var is_hidemaru_64bit = platFormAttribute & 0x00080000;
+
+	var is_hidemaru_32bit = !is_hidemaru_64bit;
+
+	var is_hidemaru_float = platFormAttribute & 0x00400000;
+
+	var is_hidemaru_int = !is_hidemaru_float;
+
+    var release_regexp = "bin3?/hm" + (is_hidemaru_float ? "float" : "") + "[0-9]+" + (is_hidemaru_64bit ? "_x64" : "") + "_signed\\.exe";
+
+    var betaver_regexp = "bin3?/hm" + (is_hidemaru_float ? "float" : "") + "[0-9]+b[0-9]+" + (is_hidemaru_64bit ? "_x64" : "") + "_signed\\.exe";
+
+    return { "release": release_regexp, "beta" : betaver_regexp }
+}
+
+// 
+
+
+function downloadHidemaruFileFromUrl(hidemaruFileUrl) {
+
+    var absoluteUrl = "https://hide.maruo.co.jp/software/" + hidemaruFileUrl;
+
+    var command = 'curl ' + absoluteUrl + ' -o "' + saveHidemaruEditorInstallerFileFullPath + '"';
+
+
+	curlProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
+console.log(command);
+    if (!curlProcess) {
+		writeOutputPane("curlが実行できませんでした。");
+        return;
+    }
+
+    curlProcess.onClose(onDownloadCompleteHidemaruEditorInstaller);
+}
+
+
+// アウトプット枠メッセージ用
+function writeOutputPane(text) {
+    var dll = loaddll("HmOutputPane.dll");
+    text = text.replace(/\r?\n/g, "\r\n");
+    dll.dllFunc.Output(hidemaru.getCurrentWindowHandle(), text + "\r\n");
+}
+
+
+function main() {
+    downloadHidemaruEditorPage(saveHidemaruEditorPageFileFullPath);
+}
+
+main();
+
+}
