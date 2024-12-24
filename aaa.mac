@@ -17,11 +17,24 @@ var saveHidemaruEditorPageFileFullPath = tempFolder + "\\hidemaru_editor_page.ht
 {
 	deletefile(saveHidemaruEditorPageFileFullPath);
 	if (existfile(saveHidemaruEditorPageFileFullPath)) {
-	   writeOutputPane("ファイルがロックされています");
+	   writeOutputPane(saveHidemaruEditorPageFileFullPath + "のファイルがロックされています");
 	}
 }
 
 var saveHidemaruEditorInstallerFileFullPath = tempFolder + "\\hidemaru_editor_installer.zip";
+{
+	deletefile(saveHidemaruEditorInstallerFileFullPath);
+	if (existfile(saveHidemaruEditorInstallerFileFullPath)) {
+	   writeOutputPane(saveHidemaruEditorInstallerFileFullPath + "のファイルがロックされています");
+	}
+}
+
+var extractFolder = tempFolder + "\\hidemaru_editor";
+{
+	if (existfile(extractFolder)) {
+        deletefile( extractFolder + "\\*.*" );
+    }
+}
 
 
 function getUserTempFolder() {
@@ -46,17 +59,21 @@ function downloadHidemaruEditorPage(saveFileFullPath) {
 // downloadHidemaruEditorPage より先に定義が済んでいる必要あり
 function onDownloadCompleteHidemaruEditorPage() {
 	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
-        writeOutputPane("curlによるファイル保存に成功しました。");
+        writeOutputPane("curlによるページ保存に成功しました。");
         var hidemaruFileUrl = getHidemaruFileUrlFromPage(saveHidemaruEditorPageFileFullPath);
         downloadHidemaruFileFromUrl(hidemaruFileUrl);
     } else {
-        writeOutputPane("curlによるファイル保存に失敗しました。");
+        writeOutputPane("curlによるページ保存に失敗しました。");
     }
 }
 
 debuginfo(2);
 function onDownloadCompleteHidemaruEditorInstaller() {
-    console.log("onDownloadCompleteHidemaruEditorInstaller");
+	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
+        writeOutputPane("curlによるインストーラー取得に成功しました。");
+    } else {
+        writeOutputPane("curlによるインストーラー取得に失敗しました。");
+    }
 }
 
 
@@ -110,7 +127,6 @@ function downloadHidemaruFileFromUrl(hidemaruFileUrl) {
 
 
 	curlProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
-console.log(command);
     if (!curlProcess) {
 		writeOutputPane("curlが実行できませんでした。");
         return;
