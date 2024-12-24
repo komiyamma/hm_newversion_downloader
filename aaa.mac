@@ -1,13 +1,69 @@
-﻿jsmode "JScript\\" + currentmacrofilename;
+﻿if (getarg(0) != "") {
+jsmode "WebView2\\" + currentmacrofilename;
+
+js {
+
+debuginfo(2);
+function showHidemaruReleaseNote() {
+
+console.log("OK");
+    var hmversion = hidemaruversion();
+    var regex = /(\d+)\.(\d+)\.(\d+)/;
+    var match = hmversion.match(regex);
+
+    if (!match) {
+        return;
+    }
+
+    var major = Number(match[1]);
+    var minor = Number(match[2]);
+    var build = Number(match[3]);
+
+console.log("OK2");
+    var url = "";
+
+    if (minor == 99 || build == 99) {
+        url = "https://hide.maruo.co.jp/software/hidemaruhist.html";
+
+    // それ以外はβバージョン
+    } else {
+        url = "https://hide.maruo.co.jp/software/hidemaruhist_pre.html";
+    }
+
+    browserpanecommand({
+        target: "_each",
+        initialize: "async",
+        url: url,
+        show: 1,
+        size: 500
+    });
+console.log("OK3");
+}
+
+showHidemaruReleaseNote();
+
+
+} //js
+
+    endmacro;
+}
+
+jsmode "JScript\\" + currentmacrofilename;
 js {
 
 
-var include_beta_download = false;  // 秀丸エディタβ版を取得対象に含むかどうか
+var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
 
 
 debuginfo(2);
 
 var platFormAttribute = platform();
+
+var currentMacroDirectory = currentmacrodirectory();
+
+var currentMacroFileName = currentmacrofilename();
+
+var hidemaruDir = hidemarudir();
 
 var fso = createobject("Scripting.FileSystemObject");
 
@@ -179,11 +235,24 @@ function onExtractCompleteHidemaruEditorInstaller() {
 
     if ( fso.FileExists( extractFolder + "\\hidemaru.exe" ) ) {
         writeOutputPane("秀丸インストーラーファイルの解凍が成功しました。");
+        runXCopy()
     } else {
         writeOutputPane("秀丸インストーラーファイルの解凍が失敗しました。");
     }
 }
 
+debuginfo(2);
+var xcopyProcess = null;
+function runXCopy() {
+    var command = '"' + currentMacroDirectory + '\\HmNewVersionDownloaderXCopy.bat" ' + '"' + extractFolder + '" "' + hidemaruDir + '" "' + currentMacroFileName + '"';
+    xcopyProcess = hidemaru.runProcess(command, ".", "gui", "sjis");
+    if (xcopyProcess) {
+        writeOutputPane("HmNewVersionDownloaderXCopy.batを実行しますう。");
+        hidemaru.setTimeout( function() { hidemaru.postExecMacroMemory("quitall"); }, 500 );
+    } else {
+       writeOutputPane("HmNewVersionDownloaderXCopy.batが見つかりませんでした。");
+    }
+}
 
 // アウトプット枠メッセージ用
 function writeOutputPane(text) {
