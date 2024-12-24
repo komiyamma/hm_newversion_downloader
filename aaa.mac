@@ -30,12 +30,41 @@ var saveHidemaruEditorInstallerFileFullPath = tempFolder + "\\hidemaru_editor_in
 }
 
 var extractFolder = tempFolder + "\\hidemaru_editor";
-{
-	if (existfile(extractFolder)) {
-        deletefile( extractFolder + "\\*.*" );
-    }
+
+function deleteFilesInExtractFolder() {
+
+	try {
+	    // 3. ディレクトリが存在するか確認
+	    if (fso.FolderExists(extractFolder)) {
+		    var folderObj = fso.GetFolder(extractFolder);
+
+		    var filesList = folderObj.Files;
+
+		    var enumerator = new Enumerator(filesList);
+		    for (; !enumerator.atEnd(); enumerator.moveNext()) {
+		        var fileObj = enumerator.item();
+		        try {
+		            fileObj.Delete();
+		        } catch (e) {
+		        }
+		    }
+
+	    }
+
+	} catch (e) {
+	    ;
+	} finally {
+	    if (filesList) { filesList = null; }
+	    if (folderObj) { folderObj = null; }
+	}
 }
 
+var exe7ZipFileFullPath = currentmacrodirectory() + "\\7z.exe";
+{
+	if (!existfile(exe7ZipFileFullPath)) {
+	   writeOutputPane(exe7ZipFileFullPath + "のファイルを発見できませんでした。");
+    }
+}
 
 function getUserTempFolder() {
     var tempFolder = fso.GetSpecialFolder(2).Path;
@@ -127,10 +156,34 @@ function downloadHidemaruFileFromUrl(hidemaruFileUrl) {
 function onDownloadCompleteHidemaruEditorInstaller() {
 	if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
         writeOutputPane("curlによるインストーラー取得に成功しました。");
+        extractHidemaruInstallerFile();
     } else {
         writeOutputPane("curlによるインストーラー取得に失敗しました。");
     }
 }
+
+
+var exe7ZipProcess = null; // インスタンスが消えると、非同期のonClose段階で元オブジェクトがなくなるので維持するため、グローバルに
+function extractHidemaruInstallerFile() {
+    var command = '"' + exe7ZipFileFullPath + '" x "' + saveHidemaruEditorInstallerFileFullPath + '" -o"' + extractFolder + '"';
+	exe7ZipProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
+    exe7ZipProcess.stdErr.onReadAll(readStdErrExtractHidemaruInstallerAsync);
+    exe7ZipProcess.onClose(onExtractCompleteHidemaruEditorInstaller);
+}
+
+function readStdErrExtractHidemaruInstallerAsync(outputText) {
+    writeOutputPane("秀丸インストーラーファイルの解凍中にエラーが発生しました");
+}
+
+function onExtractCompleteHidemaruEditorInstaller() {
+
+    if ( fso.FileExists( extractFolder + "\\hidemaru.exe" ) ) {
+        writeOutputPane("秀丸インストーラーファイルの解凍が成功しました。");
+    } else {
+        writeOutputPane("秀丸インストーラーファイルの解凍が失敗しました。");
+    }
+}
+
 
 // アウトプット枠メッセージ用
 function writeOutputPane(text) {
@@ -141,6 +194,8 @@ function writeOutputPane(text) {
 
 
 function main() {
+    deleteFilesInExtractFolder();
+
     downloadHidemaruEditorPage(saveHidemaruEditorPageFileFullPath);
 }
 
