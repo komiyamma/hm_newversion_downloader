@@ -1,2 +1,0 @@
-C:\Users\master\source\repos\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\net8.0\publish\win-x64\HmNewVersionDownloader.exe
-C:\Users\master\source\repos\HmNewVersionDownloader\HmNewVersionDownloader\bin\Release\net8.0\publish\win-x64\HmNewVersionDownloader.pdb
