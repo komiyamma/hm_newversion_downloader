@@ -1,9 +1,3 @@
-if "%~1"=="" (
-  echo 引数がありません。
-  goto :eof
-)
-
-
 rem このファイルがあるディレクトリ基準に
 pushd "%~dp0"
 color 07 
