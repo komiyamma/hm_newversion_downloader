@@ -1,10 +1,21 @@
 ﻿// このマクロ実行による再起動直後は、秀丸のリリース情報のページを表示する
 
+jsmode "JScript\\" + currentmacrofilename;
+js {
+    var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
+
+    var show_release_note = true;      // 秀丸エディタを更新した後、関連するリリース情報を表示するかどうか
+}
+
+
+
 if (getarg(0) != "") {
 
 jsmode "JScript\\" + currentmacrofilename;
 js {
-    hidemaru.postExecMacroFile('"' + currentmacrodirectory() + "\\HmNewVersionReleaseInfo.mac" + '"');
+    if (show_release_note) {
+        hidemaru.postExecMacroFile('"' + currentmacrodirectory() + "\\HmNewVersionReleaseInfo.mac" + '"');
+    }
 }
 endmacro;
 
@@ -18,14 +29,6 @@ endmacro;
 
 jsmode "JScript\\" + currentmacrofilename;
 js {
-
-
-/// <reference path="../types/hm_jsmode.d.ts" />
-
-var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
-
-
-
 var platFormAttribute = platform();
 
 var currentMacroDirectory = currentmacrodirectory();
@@ -58,21 +61,22 @@ var extractFolder = tempFolder + "\\hidemaru_editor";
 
 function deleteFilesInExtractFolder() {
 
+    if (!fso.FolderExists(extractFolder)) {
+        return;
+    }
+
     try {
-        if (fso.FolderExists(extractFolder)) {
-            var folderObj = fso.GetFolder(extractFolder);
+        var folderObj = fso.GetFolder(extractFolder);
 
-            var filesList = folderObj.Files;
+        var filesList = folderObj.Files;
 
-            var enumerator = new Enumerator(filesList);
-            for (; !enumerator.atEnd(); enumerator.moveNext()) {
-                var fileObj = enumerator.item();
-                try {
-                    fileObj.Delete();
-                } catch (e) {
-                }
+        var enumerator = new Enumerator(filesList);
+        for (; !enumerator.atEnd(); enumerator.moveNext()) {
+            var fileObj = enumerator.item();
+            try {
+                fileObj.Delete();
+            } catch (e) {
             }
-
         }
 
     } catch (e) {
@@ -233,9 +237,9 @@ function replaceIconByResourceHacker() {
 
 function onReplaceIconCompleteByResourceHacker() {
     try {
+        // 元のものと、アイコンを置換えたやつう、両方がある
         if (fso.FileExists(temp_hidemaru_exe) && fso.FileExists(temp_hidemaru_replaced)) {
 
-            // ファイルが存在する場合は削除（上書きするため）
             if (fso.FileExists(temp_hidemaru_exe)) {
                 fso.DeleteFile(temp_hidemaru_exe);
             }
@@ -251,9 +255,9 @@ function onReplaceIconCompleteByResourceHacker() {
         }
     } catch (e) {
         writeOutputPane("アイコンの置換えに失敗しました。");
+    } finally {
+        runXCopy();
     }
-
-    runXCopy();
 }
 
 
