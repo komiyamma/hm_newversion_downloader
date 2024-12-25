@@ -1,0 +1,46 @@
+﻿jsmode "WebView2\\" + currentmacrofilename;
+
+js {
+
+function showHidemaruReleaseNote() {
+
+    // リリースバージョンかどうかの判定。
+    var hmversion = hidemaruversion();
+    var regex = /(\d+)\.(\d+)\.(\d+)/;
+    var match = hmversion.match(regex);
+
+    if (!match) {
+        return;
+    }
+
+    var major = Number(match[1]);
+    var minor = Number(match[2]);
+    var build = Number(match[3]);
+
+    var url = "";
+
+    // 9.30.99 はリリース。そして、9.99.01もリリースである。
+    // 真ん中のマイナーもしくはビルドが99なら、それはリリースバージョン。
+    // マイナーが99というのは「該当メジャーバージョンの最後のマイナーバージョン」であり、
+    // そこから先はベータ版がリリースされなくなり、全てのビルドバージョンがリリースとなる。
+    if (minor == 99 || build == 99) {
+        url = "https://hide.maruo.co.jp/software/hidemaruhist.html";
+
+    // それ以外はβバージョン
+    } else {
+        url = "https://hide.maruo.co.jp/software/hidemaruhist_pre.html";
+    }
+
+    browserpanecommand({
+        target: "_each",
+        url: url,
+        show: 1,
+        size: 500
+    });
+}
+
+showHidemaruReleaseNote();
+
+
+} //js
+
