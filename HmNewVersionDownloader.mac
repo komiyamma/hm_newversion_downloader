@@ -1,157 +1,27 @@
-﻿// このマクロ実行による再起動直後は、秀丸のリリース情報のページを表示する
+﻿/*
+ * HmNewVersionDownloader v1.3.0.1
+ *
+ * Copyright (c) 2024 Akitsugu Komiyama
+ * under the MIT License
+ */
 
-jsmode "JScript\\" + currentmacrofilename;
+jsmode @"\" + currentmacrofilename;
+
 js {
-    var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
-
-    var show_release_note = true;      // 秀丸エディタを更新した後、関連するリリース情報を表示するかどうか
-}
 
 
+var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
 
-if (getarg(0) != "") {
-
-jsmode "JScript\\" + currentmacrofilename;
-js {
-    if (show_release_note) {
-        hidemaru.postExecMacroFile('"' + currentmacrodirectory() + "\\HmNewVersionReleaseInfo.mac" + '"');
-    }
-}
-endmacro;
-
-} // getarg(0)
+var show_release_note = false;     // 秀丸エディタを更新した後、関連するリリース情報を表示するかどうか
 
 
+function updateHidemaruVersion() {
 
-
-
-// 通常実行では、秀丸のダウンロード＆コピー
-
-jsmode "JScript\\" + currentmacrofilename;
-js {
-var platFormAttribute = platform();
-
-var currentMacroDirectory = currentmacrodirectory();
-
-var currentMacroFileName = currentmacrofilename();
-
-var hidemaruDir = hidemarudir();
-
-var fso = createobject("Scripting.FileSystemObject");
-
-var tempFolder = getUserTempFolder();
-
-var saveHidemaruEditorPageFileFullPath = tempFolder + "\\hidemaru_editor_page.html";
-{
-    deletefile(saveHidemaruEditorPageFileFullPath);
-    if (existfile(saveHidemaruEditorPageFileFullPath)) {
-        writeOutputPane(saveHidemaruEditorPageFileFullPath + "のファイルがロックされています");
-    }
-}
-
-var saveHidemaruEditorInstallerFileFullPath = tempFolder + "\\hidemaru_editor_installer.zip";
-{
-    deletefile(saveHidemaruEditorInstallerFileFullPath);
-    if (existfile(saveHidemaruEditorInstallerFileFullPath)) {
-        writeOutputPane(saveHidemaruEditorInstallerFileFullPath + "のファイルがロックされています");
-    }
-}
-
-var extractFolder = tempFolder + "\\hidemaru_editor";
-
-function deleteFilesInExtractFolder() {
-
-    if (!fso.FolderExists(extractFolder)) {
-        return;
-    }
-
-    try {
-        var folderObj = fso.GetFolder(extractFolder);
-
-        var filesList = folderObj.Files;
-
-        var enumerator = new Enumerator(filesList);
-        for (; !enumerator.atEnd(); enumerator.moveNext()) {
-            var fileObj = enumerator.item();
-            try {
-                fileObj.Delete();
-            } catch (e) {
-            }
-        }
-
-    } catch (e) {
-        ;
-    } finally {
-        if (filesList) { filesList = null; }
-        if (folderObj) { folderObj = null; }
-    }
-}
-
-var exe7ZipFileFullPath = currentMacroDirectory + "\\7z.exe";
-{
-    if (!existfile(exe7ZipFileFullPath)) {
-        writeOutputPane(exe7ZipFileFullPath + "のファイルを発見できませんでした。");
-    }
-}
-
-function getUserTempFolder() {
-    var tempFolder = fso.GetSpecialFolder(2).Path;
-    return (tempFolder);
-}
-
-
-var curlProcess = null; // インスタンスが消えると、非同期のonClose段階で元オブジェクトがなくなるので維持するため、グローバルに
-function downloadHidemaruEditorPage(saveFileFullPath) {
-    var command = 'curl "http://hide.maruo.co.jp/software/hidemaru.html" -o "' + saveFileFullPath + '"';
-    curlProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
-    if (!curlProcess) {
-        writeOutputPane("curlが実行できませんでした。");
-        return;
-    }
-
-    curlProcess.onClose(onDownloadCompleteHidemaruEditorPage);
-}
-
-
-function onDownloadCompleteHidemaruEditorPage() {
-    if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
-        writeOutputPane("curlによるページ保存に成功しました。");
-        var hidemaruFileUrl = getHidemaruFileUrlFromPage(saveHidemaruEditorPageFileFullPath);
-        downloadHidemaruFileFromUrl(hidemaruFileUrl);
-    } else {
-        writeOutputPane("curlによるページ保存に失敗しました。");
-    }
-}
-
-function getHidemaruFileUrlFromPage(hidemaruEditorPageFileFullPath) {
-    var pageText = hidemaru.loadTextFile(hidemaruEditorPageFileFullPath);
-
-    var targetHmFileRegexp = getTargetHidemaruFileRegexp();
-    if (targetHmFileRegexp.beta) {
-        var matchBeta = pageText.match(targetHmFileRegexp.beta);
-    }
-
-    if (targetHmFileRegexp.release) {
-        var matchRelease = pageText.match(targetHmFileRegexp.release);
-    }
-
-    // デフォルトはβ版
-    var targetFileUrl = matchBeta;
-    // β版が存在しないか、もしくは、βを含めないという指定がある場合
-    if (!matchBeta || !include_beta_download) {
-        targetFileUrl = matchRelease;
-    }
-
-    return targetFileUrl;
-}
-
-function getTargetHidemaruFileRegexp() {
-
-    var is_hidemaru_64bit = platFormAttribute & 0x00080000;
+    var is_hidemaru_64bit = platform() & 0x00080000;
 
     var is_hidemaru_32bit = !is_hidemaru_64bit;
 
-    var is_hidemaru_float = platFormAttribute & 0x00400000;
+    var is_hidemaru_float = platform() & 0x00400000;
 
     var is_hidemaru_int = !is_hidemaru_float;
 
@@ -159,136 +29,57 @@ function getTargetHidemaruFileRegexp() {
 
     var betaver_regexp = "bin3?/hm" + (is_hidemaru_float ? "float" : "") + "[0-9]+b[0-9]+" + (is_hidemaru_64bit ? "_x64" : "") + "_signed\\.exe";
 
-    return { "release": release_regexp, "beta": betaver_regexp }
+    // βが含まれないのであれば、β正規表現はリリース正規表現で上書きしておく
+    if (!include_beta_download) {
+        betaver_regexp = release_regexp;
+    }
+    var command_line = sprintf('"%s\\HmNewVersionDownloader.bat" "%s" "%s" "%s" "%s"', currentmacrodirectory(), hidemarudir(), betaver_regexp, release_regexp, currentmacrofilename());
+
+    var pi = hidemaru.runProcess(command_line, ".", "gui", "sjis");
 }
 
-// 
+function showHidemaruReleaseNote() {
 
+    var hmversion = hidemaruversion();
+    var regex = /(\d+)\.(\d+)\.(\d+)/;
+    var match = hmversion.match(regex);
 
-function downloadHidemaruFileFromUrl(hidemaruFileUrl) {
-
-    var absoluteUrl = "https://hide.maruo.co.jp/software/" + hidemaruFileUrl;
-
-    var command = 'curl ' + absoluteUrl + ' -o "' + saveHidemaruEditorInstallerFileFullPath + '"';
-
-
-    curlProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
-    if (!curlProcess) {
-        writeOutputPane("curlが実行できませんでした。");
+    if (!match) {
         return;
     }
 
-    curlProcess.onClose(onDownloadCompleteHidemaruEditorInstaller);
-}
+    var major = Number(match[1]);
+    var minor = Number(match[2]);
+    var build = Number(match[3]);
 
-function onDownloadCompleteHidemaruEditorInstaller() {
-    if (fso.FileExists(saveHidemaruEditorPageFileFullPath)) {
-        writeOutputPane("curlによるインストーラー取得に成功しました。");
-        extractHidemaruInstallerFile();
+    var url = "";
+
+    if (minor == 99 || build == 99) {
+        url = "https://hide.maruo.co.jp/software/hidemaruhist.html";
+
+    // それ以外はβバージョン
     } else {
-        writeOutputPane("curlによるインストーラー取得に失敗しました。");
-    }
-}
-
-
-var exe7ZipProcess = null; // インスタンスが消えると、非同期のonClose段階で元オブジェクトがなくなるので維持するため、グローバルに
-function extractHidemaruInstallerFile() {
-    var command = '"' + exe7ZipFileFullPath + '" x "' + saveHidemaruEditorInstallerFileFullPath + '" -o"' + extractFolder + '"';
-    exe7ZipProcess = hidemaru.runProcess(command, tempFolder, "stdio", "sjis");
-    exe7ZipProcess.stdErr.onReadAll(readStdErrExtractHidemaruInstallerAsync);
-    exe7ZipProcess.onClose(onExtractCompleteHidemaruEditorInstaller);
-}
-
-function readStdErrExtractHidemaruInstallerAsync(outputText) {
-    writeOutputPane("秀丸インストーラーファイルの解凍中にエラーが発生しました");
-}
-
-function onExtractCompleteHidemaruEditorInstaller() {
-
-    if (fso.FileExists(extractFolder + "\\hidemaru.exe")) {
-        writeOutputPane("秀丸インストーラーファイルの解凍が成功しました。");
-        replaceIconByResourceHacker();
-    } else {
-        writeOutputPane("秀丸インストーラーファイルの解凍が失敗しました。");
-    }
-}
-
-debuginfo(2);
-var resourceHackerProcess = null;
-
-var temp_hidemaru_exe = extractFolder + "\\hidemaru.exe";
-var temp_hidemaru_replaced = extractFolder + "\\hidemaru_replaced.exe";
-
-function replaceIconByResourceHacker() {
-    var resourceHackerExeFullPath = currentMacroDirectory + '\\ResourceHacker.exe';
-
-    // リソースハッカーがないのであれば、アイコンは変更せずにすぐに置換えコピーへと移行
-    if (!fso.FileExists(resourceHackerExeFullPath)) {
-        runXCopy();
-        return;
+        url = "https://hide.maruo.co.jp/software/hidemaruhist_pre.html";
     }
 
-    var iconResourceFileFullPath = currentMacroDirectory + "\\HmNewVersionDownloader.res";
-
-    var command = '"' + resourceHackerExeFullPath + '" -open "' + temp_hidemaru_exe + '" -resource "' + iconResourceFileFullPath + '" -action modify -save "' + temp_hidemaru_replaced + '"';
-    resourceHackerProcess = hidemaru.runProcess(command, ".", "stdio", "sjis");
-    resourceHackerProcess.onClose = onReplaceIconCompleteByResourceHacker;
+    browserpanecommand({
+        target: "_each",
+        initialize: "async",
+        url: url,
+        show: 1,
+        size: 500
+    });
 }
 
-function onReplaceIconCompleteByResourceHacker() {
-    try {
-        // 元のものと、アイコンを置換えたやつう、両方がある
-        if (fso.FileExists(temp_hidemaru_exe) && fso.FileExists(temp_hidemaru_replaced)) {
-
-            if (fso.FileExists(temp_hidemaru_exe)) {
-                fso.DeleteFile(temp_hidemaru_exe);
-            }
-
-            if (fso.FileExists(temp_hidemaru_replaced)) {
-                fso.MoveFile(temp_hidemaru_replaced, temp_hidemaru_exe);
-            }
-            writeOutputPane("アイコンの置換えに成功しました。");
-        }
-
-        else if (fso.FileExists(temp_hidemaru_exe)) {
-            ; // 何もなし
-        }
-    } catch (e) {
-        writeOutputPane("アイコンの置換えに失敗しました。");
-    } finally {
-        runXCopy();
+if (getarg(0) == "show_release_note") {
+    if (show_release_note) {
+        showHidemaruReleaseNote();
     }
+} else {
+    updateHidemaruVersion();
+    hidemaru.postExecMacroMemory("quitall");
 }
-
-
-
-var xcopyProcess = null;
-function runXCopy() {
-    var command = '"' + currentMacroDirectory + '\\HmNewVersionDownloaderXCopy.bat" ' + '"' + extractFolder + '" "' + hidemaruDir + '" "' + currentMacroFileName + '"';
-    xcopyProcess = hidemaru.runProcess(command, ".", "gui", "sjis");
-    if (xcopyProcess) {
-        writeOutputPane("秀丸ファイルのコピーのため再起動します。");
-        hidemaru.setTimeout(function () { hidemaru.postExecMacroMemory("quitall"); }, 500);
-    } else {
-        writeOutputPane("HmNewVersionDownloaderXCopy.batが見つかりませんでした。");
-    }
-}
-
-// アウトプット枠メッセージ用
-function writeOutputPane(text) {
-    var dll = loaddll("HmOutputPane.dll");
-    text = text.replace(/\r?\n/g, "\r\n");
-    dll.dllFunc.Output(hidemaru.getCurrentWindowHandle(), text + "\r\n");
-}
-
-
-function main() {
-    deleteFilesInExtractFolder();
-
-    downloadHidemaruEditorPage(saveHidemaruEditorPageFileFullPath);
-}
-
-main();
 
 
 } // js
+
