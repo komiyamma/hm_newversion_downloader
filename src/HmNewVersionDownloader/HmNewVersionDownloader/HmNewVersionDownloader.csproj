@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ArchiveTempFolder.cs" />
     <Compile Include="ExtractArchieveFile.cs" />
+    <Compile Include="CloseHmProcess.cs" />
     <Compile Include="IronReplacer.cs" />
     <Compile Include="KillHidemaruProcess.cs" />
     <Compile Include="HmNewVersionDownloader.cs" />

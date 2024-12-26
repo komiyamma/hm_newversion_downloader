@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 public partial class Program
 {
@@ -34,31 +36,64 @@ public partial class Program
             hm_exe_release_regexp = "(" + args[2] + ")";
         }
 
-        // 0.5秒待つ
-        System.Threading.Thread.Sleep(500);
-
-        try
+        var task1 = Task.Run(async () =>
         {
-            // 全ての秀丸の終了
-            KillHidemaruProcesses();
+            try
+            {
+                // 0.5秒待つ
+                await Task.Delay(500);
 
-            // 対象となるexeのURLの取得
-            string download_exe_url = GetTargetExeUrl();
+                // まずは自然なクローズを要求
+                await CloseHidemaruProcess();
 
-            // 対象のファイルをダウンロード
-            DownloadTargetFile(download_exe_url, archive_fullpath);
+                Process[] ps1 = Process.GetProcessesByName("hidemaru");
+                if (ps1.Length > 0)
+                {
 
-            // ダウンロードしたものを展開するためのフォルダを作成
-            // 作成済みならフォルダ内を空にする
-            NormalizeTempFolder();
-            Console.WriteLine("フォルダを正規化します。");
+                    await Task.Delay(500);
+                    // 全ての秀丸の強制終了
+                    KillHidemaruProcesses();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"秀丸の終了エラー: {ex}");
+            }
+        });
 
-            // ダウンロードしたものを解凍
-            ExecuteSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
-            Console.WriteLine("ファイルを解凍します。");
+        var task2 = Task.Run(() =>
+        {
+            try
+            {
+                // 対象となるexeのURLの取得
+                string download_exe_url = GetTargetExeUrl();
 
-            ReplaceIcon();
+                // 対象のファイルをダウンロード
+                DownloadTargetFile(download_exe_url, archive_fullpath);
 
+                // ダウンロードしたものを展開するためのフォルダを作成
+                // 作成済みならフォルダ内を空にする
+                NormalizeTempFolder();
+                Console.WriteLine("フォルダを正規化します。");
+
+                // ダウンロードしたものを解凍
+                ExecuteSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
+                Console.WriteLine("ファイルを解凍します。");
+
+                ReplaceIcon();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ダウンロードエラー: {ex}");
+                return;
+            }
+        });
+
+        // 非同期の方が遅くて、まだ終わっていないなら、終了を待つ
+        task1.Wait();
+        task2.Wait();
+
+        try { 
             Console.WriteLine("ファイルをコピーします。");
             UpdateHidemaruFiles(hm_folder);
 

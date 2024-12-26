@@ -1,5 +1,5 @@
 ﻿/*
- * HmNewVersionDownloader v1.3.0.1
+ * HmNewVersionDownloader v1.3.0.4
  *
  * Copyright (c) 2024 Akitsugu Komiyama
  * under the MIT License
@@ -12,7 +12,7 @@ js {
 
 var include_beta_download = true;  // 秀丸エディタβ版を取得対象に含むかどうか
 
-var show_release_note = false;     // 秀丸エディタを更新した後、関連するリリース情報を表示するかどうか
+var show_release_note = true;     // 秀丸エディタを更新した後、関連するリリース情報を表示するかどうか
 
 
 function updateHidemaruVersion() {
