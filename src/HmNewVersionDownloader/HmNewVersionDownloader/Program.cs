@@ -106,7 +106,7 @@ public partial class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"ダウンロードエラー: {ex}");
+            Console.WriteLine($"ファイル操作エラー: {ex}");
             return;
         }
 
