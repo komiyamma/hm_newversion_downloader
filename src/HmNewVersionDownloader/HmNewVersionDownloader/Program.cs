@@ -46,14 +46,18 @@ public partial class Program
                 // まずは自然なクローズを要求
                 await CloseHidemaruProcess();
 
-                Process[] ps1 = Process.GetProcessesByName("hidemaru");
-                if (ps1.Length > 0)
+                for (int count = 0; count < 3; count++)
                 {
-
-                    await Task.Delay(500);
-                    // 全ての秀丸の強制終了
-                    KillHidemaruProcesses();
+                    Process[] remainProcess = Process.GetProcessesByName("hidemaru");
+                    if (remainProcess.Length == 0)
+                    {
+                        break;
+                    }
+                    await Task.Delay(200);
                 }
+
+                // 全ての秀丸の強制終了
+                KillHidemaruProcesses();
             }
             catch (Exception ex)
             {
