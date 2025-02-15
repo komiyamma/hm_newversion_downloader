@@ -1,7 +1,7 @@
 ﻿/*
- * HmNewVersionDownloader v1.3.0.4
+ * HmNewVersionDownloader v1.3.0.5
  *
- * Copyright (c) 2024 Akitsugu Komiyama
+ * Copyright (c) 2024-2025 Akitsugu Komiyama
  * under the MIT License
  */
 
@@ -54,12 +54,13 @@ function showHidemaruReleaseNote() {
 
     var url = "";
 
+    // 正式リリース板
     if (minor == 99 || build == 99) {
-        url = "https://hide.maruo.co.jp/software/hidemaruhist.html";
+        url = "https://hide.maruo.co.jp/software/hidemaruhist.html" + "?nocache=" + tickcount();
 
     // それ以外はβバージョン
     } else {
-        url = "https://hide.maruo.co.jp/software/hidemaruhist_pre.html";
+        url = "https://hide.maruo.co.jp/software/hidemaruhist_pre.html" + "?nocache=" + tickcount();
     }
 
     browserpanecommand({
