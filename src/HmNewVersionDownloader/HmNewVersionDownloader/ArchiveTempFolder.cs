@@ -4,23 +4,27 @@ using System.IO;
 public partial class Program
 {
 
-    private static void NormalizeTempFolder()
+    // 解凍用ワークディレクトリを「存在し、かつ空」に正規化する。
+    // 既存仕様: 既存ファイルの削除でエラーが発生しても握りつぶす（後続処理を継続）。
+    private static void NormalizeExtractionDirectory()
     {
         try
         {
-            if (!Directory.Exists(archive_extracted_folder))
+            if (!Directory.Exists(ExtractedArchiveDirectory))
             {
-                Directory.CreateDirectory(archive_extracted_folder);
+                Directory.CreateDirectory(ExtractedArchiveDirectory);
             }
 
-            // archive_extracted_folder内のファイルを削除
-            foreach (string file in Directory.GetFiles(archive_extracted_folder))
+            foreach (string file in Directory.GetFiles(ExtractedArchiveDirectory))
             {
                 try
                 {
                     File.Delete(file);
                 }
-                catch { }
+                catch
+                {
+                    // 既存仕様: 失敗しても継続（ログのみ）。
+                }
             }
         }
         catch (Exception ex)

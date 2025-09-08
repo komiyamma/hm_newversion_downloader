@@ -5,59 +5,61 @@ using System.Threading.Tasks;
 
 public partial class Program
 {
-    static string temp_folder = System.IO.Path.GetTempPath();
+    // 秀丸のプロセス名（共通定義）。
+    private const string HidemaruProcessName = "hidemaru";
 
-    // ダウンロード先の絶対ファイル名の決定
-    static string archive_fullpath = Path.Combine(temp_folder, "HmNewVersionArchive.zip");
+    // 非同期終了待ちのための遅延・ポーリング条件（既存仕様の数値を定数化）。
+    private const int CloseGraceDelayMs = 500;
+    private const int ClosePollCount = 3;
+    private const int ClosePollIntervalMs = 200;
 
-    // 「HmNewVersionArchive」を解凍するフォルダ
-    static string archive_extracted_folder = Path.Combine(temp_folder, "HmNewVersionArchive");
+    // 一時領域と作業ファイル/ディレクトリの絶対パス。
+    static readonly string TempDirectory = Path.GetTempPath();
+    static readonly string ArchiveFilePath = Path.Combine(TempDirectory, "HmNewVersionArchive.zip");
+    static readonly string ExtractedArchiveDirectory = Path.Combine(TempDirectory, "HmNewVersionArchive");
 
-    // 秀丸本体のフォルダー
-    static string hm_folder = null;
+    // 秀丸本体のインストールディレクトリ（Main 引数で決定）。
+    static string HidemaruInstallDirectory = null;
 
     public static void Main(string[] args)
     {
-        // 秀丸が存在するフォルダの格納
+        // 引数1: 秀丸のインストールフォルダ。指定がなければ何もせず終了（既存仕様）。
         if (args.Length >= 1)
         {
-            // 最初の引数は秀丸エディタのフォルダ
-            hm_folder = args[0];
+            HidemaruInstallDirectory = args[0];
         }
         else
         {
             return;
         }
 
-        // ダウンロードする秀丸のexeの正規表現
+        // 引数2,3: 取得対象 exe の正規表現（ベータ/リリース）。指定時は上書き。
         if (args.Length >= 3)
         {
-            hm_exe_beta_regexp = "(" + args[1] + ")";
-            hm_exe_release_regexp = "(" + args[2] + ")";
+            betaExePattern = "(" + args[1] + ")";
+            releaseExePattern = "(" + args[2] + ")";
         }
 
-        var task1 = Task.Run(async () =>
+        // 非同期で「自然終了要求」と「ダウンロード/展開」を同時進行。
+        var closeTask = Task.Run(async () =>
         {
             try
             {
-                // 0.5秒待つ
-                await Task.Delay(500);
+                await Task.Delay(CloseGraceDelayMs); // 先に少し猶予
 
-                // まずは自然なクローズを要求
-                await CloseHidemaruProcess();
+                await CloseHidemaruProcess(); // WM_CLOSE を送って自然終了を促す
 
-                for (int count = 0; count < 3; count++)
+                for (int count = 0; count < ClosePollCount; count++)
                 {
-                    Process[] remainProcess = Process.GetProcessesByName("hidemaru");
-                    if (remainProcess.Length == 0)
+                    Process[] remainingProcesses = Process.GetProcessesByName(HidemaruProcessName);
+                    if (remainingProcesses.Length == 0)
                     {
                         break;
                     }
-                    await Task.Delay(200);
+                    await Task.Delay(ClosePollIntervalMs);
                 }
 
-                // 全ての秀丸の強制終了
-                KillHidemaruProcesses();
+                KillHidemaruProcesses(); // まだ残っていれば最終手段
             }
             catch (Exception ex)
             {
@@ -65,26 +67,23 @@ public partial class Program
             }
         });
 
-        var task2 = Task.Run(() =>
+        var workTask = Task.Run(() =>
         {
             try
             {
-                // 対象となるexeのURLの取得
-                string download_exe_url = GetTargetExeUrl();
+                string executableUrl = GetTargetExecutableUrl();
 
-                // 対象のファイルをダウンロード
-                DownloadTargetFile(download_exe_url, archive_fullpath);
+                DownloadFileTo(executableUrl, ArchiveFilePath);
 
-                // ダウンロードしたものを展開するためのフォルダを作成
-                // 作成済みならフォルダ内を空にする
-                NormalizeTempFolder();
+                // 作業ディレクトリを空に整える
+                NormalizeExtractionDirectory();
                 Console.WriteLine("フォルダを正規化します。");
 
-                // ダウンロードしたものを解凍
-                ExecuteSevenZip("7z.exe", archive_fullpath, archive_extracted_folder);
+                // 7z 解凍
+                ExtractArchiveWithSevenZip("7z.exe", ArchiveFilePath, ExtractedArchiveDirectory);
                 Console.WriteLine("ファイルを解凍します。");
 
-                ReplaceIcon();
+                ApplyResourceToHidemaruExecutable();
             }
             catch (Exception ex)
             {
@@ -93,23 +92,22 @@ public partial class Program
             }
         });
 
-        // 非同期の方が遅くて、まだ終わっていないなら、終了を待つ
-        task1.Wait();
-        task2.Wait();
+        // どちらも完了まで待機
+        closeTask.Wait();
+        workTask.Wait();
 
-        try { 
+        try
+        {
             Console.WriteLine("ファイルをコピーします。");
-            UpdateHidemaruFiles(hm_folder);
+            UpdateHidemaruFiles(HidemaruInstallDirectory);
 
             Console.WriteLine("解凍ファイルを削除します。");
-            NormalizeTempFolder();
+            NormalizeExtractionDirectory();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"ファイル操作エラー: {ex}");
             return;
         }
-
     }
-
 }

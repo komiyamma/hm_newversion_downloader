@@ -6,48 +6,36 @@ using System.Text.RegularExpressions;
 
 public partial class Program
 {
-    // 対象の秀丸の正規表現
-    static string hm_exe_beta_regexp = @"aaaaaaaaaaaaaaaaaaa";
+    // 対象の秀丸の正規表現（第1キャプチャに相対パスが入る想定）
+    static string betaExePattern = @"aaaaaaaaaaaaaaaaaaa";
+    static string releaseExePattern = @"bbbbbbbbbbbbbbbbbbb";
 
-    // 対象の秀丸の正規表現
-    static string hm_exe_release_regexp = @"bbbbbbbbbbbbbbbbbbb";
+    // 取得元のページURLおよび相対パス解決用の基底URL
+    private const string HidemaruPageUrl = "https://hide.maruo.co.jp/software/hidemaru.html";
+    private static readonly Uri BaseSoftwareUri = new Uri("https://hide.maruo.co.jp/software/", UriKind.Absolute);
 
-    static string RemoveHtmlComments(string html)
+    // HTML コメントを除去するための事前コンパイル済みパターン
+    private static readonly Regex HtmlCommentRegex = new Regex("<!--.*?-->", RegexOptions.Singleline | RegexOptions.Compiled);
+
+    // HTML 文字列からコメント領域を取り除く。
+    static string StripHtmlComments(string html)
     {
-        return Regex.Replace(html, @"<!--.*?-->", "", RegexOptions.Singleline);
+        return HtmlCommentRegex.Replace(html, string.Empty);
     }
 
-    static string GetTargetExeUrl()
+    // 公開ページを取得し、ベータ/リリース双方のパターンで対象 exe の URL を抽出し、
+    // 最初に見つかったものを返す（既存仕様）。
+    static string GetTargetExecutableUrl()
     {
-        // HTTPリクエストの作成
         using (HttpClient client = new HttpClient())
         {
-
-            // Webページの取得
-            string htmlContent = client.GetStringAsync("https://hide.maruo.co.jp/software/hidemaru.html").Result;
-            htmlContent = RemoveHtmlComments(htmlContent);
+            string htmlContent = client.GetStringAsync(HidemaruPageUrl).Result;
+            htmlContent = StripHtmlComments(htmlContent);
             Console.WriteLine("Webページの取得が完了しました。");
-            // beta版の状況を取得
 
-            // 正規表現を使ってURLを抽出
-            MatchCollection matches_beta = Regex.Matches(htmlContent, hm_exe_beta_regexp);
-            Console.WriteLine("正規表現:" + hm_exe_beta_regexp);
-
-            // URLのリストを作成する
-            List<string> urls = new List<string>();
-            foreach (Match match in matches_beta)
-            {
-                urls.Add(new Uri(new Uri("https://hide.maruo.co.jp/software/"), match.Groups[1].Value).AbsoluteUri);
-            }
-
-            // 正規表現を使ってURLを抽出
-            MatchCollection matches_release = Regex.Matches(htmlContent, hm_exe_release_regexp);
-            Console.WriteLine("正規表現:" + hm_exe_release_regexp);
-
-            foreach (Match match in matches_release)
-            {
-                urls.Add(new Uri(new Uri("https://hide.maruo.co.jp/software/"), match.Groups[1].Value).AbsoluteUri);
-            }
+            var urls = new List<string>();
+            urls.AddRange(ExtractAbsoluteUrls(htmlContent, betaExePattern, BaseSoftwareUri));
+            urls.AddRange(ExtractAbsoluteUrls(htmlContent, releaseExePattern, BaseSoftwareUri));
 
             if (urls.Count == 0)
             {
@@ -58,7 +46,25 @@ public partial class Program
         }
     }
 
-    private static void DownloadTargetFile(string url, string filename)
+    // 指定パターンで HTML から相対パスを抽出し、基底URLと結合した絶対URLコレクションを返す。
+    // 期待仕様: 第1キャプチャグループが相対パスであること。
+    private static IEnumerable<string> ExtractAbsoluteUrls(string htmlContent, string pattern, Uri baseUri)
+    {
+        MatchCollection matches = Regex.Matches(htmlContent, pattern);
+        Console.WriteLine("正規表現:" + pattern);
+
+        List<string> found = new List<string>(matches.Count);
+        foreach (Match match in matches)
+        {
+            string relative = match.Groups[1].Value;
+            string absolute = new Uri(baseUri, relative).AbsoluteUri;
+            found.Add(absolute);
+        }
+        return found;
+    }
+
+    // 指定 URL からローカルファイルへダウンロードする。完了時に進捗メッセージを出力。
+    private static void DownloadFileTo(string url, string filename)
     {
         using (WebClient webClient = new WebClient())
         {

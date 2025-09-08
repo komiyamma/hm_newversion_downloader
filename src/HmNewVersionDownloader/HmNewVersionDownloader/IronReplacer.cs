@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public partial class Program { 
 
-    static bool ReplaceIcon()
+    // 7-Zip で解凍した hidemaru.exe に対し、ResourceHacker を用いて .res を適用し、
+    // 自然な形で置き換える（テンポラリへ保存 → 元 exe 削除 → 名前変更）。
+    // 既存仕様: ResourceHacker のパスは呼び出し環境で解決可能であること（同一フォルダ等）。
+    static bool ApplyResourceToHidemaruExecutable()
     {
-        string temp_hidemaru_exe = Path.Combine(archive_extracted_folder, "hidemaru.exe");
-        string temp_hidemaru_replaced = Path.Combine(archive_extracted_folder, "hidemaru_replaced.exe");
-        string resourceFile = "HmNewVersionDownloader.res"; // これは絶対パスか相対パスで指定する必要があります
+        string targetExePath = Path.Combine(ExtractedArchiveDirectory, "hidemaru.exe");
+        string replacedExePath = Path.Combine(ExtractedArchiveDirectory, "hidemaru_replaced.exe");
+        string resourceFilePath = "HmNewVersionDownloader.res"; // 実行環境で解決可能な .res パス（相対/絶対）
 
-
-        // ResourceHacker.exe のパスを適切に設定する
-        string resourceHackerPath = "ResourceHacker.exe"; // ResourceHacker.exe のパスをここに指定してください.  実行ファイルと同じフォルダにあればこのままでOK
-
+        string resourceHackerPath = "ResourceHacker.exe"; // 同梱または PATH 上に配置されている想定
 
         try
         {
@@ -26,17 +22,17 @@ public partial class Program {
                 throw new FileNotFoundException(resourceHackerPath);
             }
 
-            // 1. ResourceHacker を実行
+            // ResourceHacker によるリソース更新
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = resourceHackerPath,
-                Arguments = $"-open \"{temp_hidemaru_exe}\" -resource \"{resourceFile}\" -action modify -save \"{temp_hidemaru_replaced}\"",
+                Arguments = $"-open \"{targetExePath}\" -resource \"{resourceFilePath}\" -action modify -save \"{replacedExePath}\"",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true
             };
 
-            Console.WriteLine(resourceHackerPath + " " + $"-open \"{temp_hidemaru_exe}\" -resource \"{resourceFile}\" -action modify -save \"{temp_hidemaru_replaced}\"");
+            Console.WriteLine(resourceHackerPath + " " + $"-open \"{targetExePath}\" -resource \"{resourceFilePath}\" -action modify -save \"{replacedExePath}\"");
 
             using (Process process = new Process { StartInfo = startInfo })
             {
@@ -51,29 +47,26 @@ public partial class Program {
                 }
             }
 
-
-            // 2. 元のファイルを削除
-            if (File.Exists(temp_hidemaru_exe))
+            // 置換の原子性は保証しない（既存仕様）。
+            if (File.Exists(targetExePath))
             {
-                File.Delete(temp_hidemaru_exe);
+                File.Delete(targetExePath);
             }
             else
             {
-                Console.WriteLine("元のファイルが見つかりません: " + temp_hidemaru_exe);
+                Console.WriteLine("元のファイルが見つかりません: " + targetExePath);
             }
 
-            // 3. ファイル名を変更
-            if (File.Exists(temp_hidemaru_replaced))
+            if (File.Exists(replacedExePath))
             {
-                File.Move(temp_hidemaru_replaced, temp_hidemaru_exe);
+                File.Move(replacedExePath, targetExePath);
             }
             else
             {
-                Console.WriteLine("変更後のファイルが見つかりません: " + temp_hidemaru_replaced);
+                Console.WriteLine("変更後のファイルが見つかりません: " + replacedExePath);
             }
 
             Console.WriteLine("処理が完了しました。");
-
         }
         catch (Exception ex)
         {
