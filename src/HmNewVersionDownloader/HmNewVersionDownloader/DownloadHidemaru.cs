@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -6,32 +6,32 @@ using System.Text.RegularExpressions;
 
 public partial class Program
 {
-    // å¯¾è±¡ã®ç§€ä¸¸ã®æ­£è¦è¡¨ç¾ï¼ˆç¬¬1ã‚­ãƒ£ãƒ—ãƒãƒ£ã«ç›¸å¯¾ãƒ‘ã‚¹ãŒå…¥ã‚‹æƒ³å®šï¼‰
+    // ‘ÎÛ‚ÌGŠÛ‚Ì³‹K•\Œ»i‘æ1ƒLƒƒƒvƒ`ƒƒ‚É‘Š‘ÎƒpƒX‚ª“ü‚é‘z’èj
     static string betaExePattern = @"aaaaaaaaaaaaaaaaaaa";
     static string releaseExePattern = @"bbbbbbbbbbbbbbbbbbb";
 
-    // å–å¾—å…ƒã®ãƒšãƒ¼ã‚¸URLãŠã‚ˆã³ç›¸å¯¾ãƒ‘ã‚¹è§£æ±ºç”¨ã®åŸºåº•URL
+    // æ“¾Œ³‚Ìƒy[ƒWURL‚¨‚æ‚Ñ‘Š‘ÎƒpƒX‰ğŒˆ—p‚ÌŠî’êURL
     private const string HidemaruPageUrl = "https://hide.maruo.co.jp/software/hidemaru.html";
     private static readonly Uri BaseSoftwareUri = new Uri("https://hide.maruo.co.jp/software/", UriKind.Absolute);
 
-    // HTML ã‚³ãƒ¡ãƒ³ãƒˆã‚’é™¤å»ã™ã‚‹ãŸã‚ã®äº‹å‰ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ¸ˆã¿ãƒ‘ã‚¿ãƒ¼ãƒ³
+    // HTML ƒRƒƒ“ƒg‚ğœ‹‚·‚é‚½‚ß‚Ì–‘OƒRƒ“ƒpƒCƒ‹Ï‚İƒpƒ^[ƒ“
     private static readonly Regex HtmlCommentRegex = new Regex("<!--.*?-->", RegexOptions.Singleline | RegexOptions.Compiled);
 
-    // HTML æ–‡å­—åˆ—ã‹ã‚‰ã‚³ãƒ¡ãƒ³ãƒˆé ˜åŸŸã‚’å–ã‚Šé™¤ãã€‚
+    // HTML •¶š—ñ‚©‚çƒRƒƒ“ƒg—Ìˆæ‚ğæ‚èœ‚­B
     static string StripHtmlComments(string html)
     {
         return HtmlCommentRegex.Replace(html, string.Empty);
     }
 
-    // å…¬é–‹ãƒšãƒ¼ã‚¸ã‚’å–å¾—ã—ã€ãƒ™ãƒ¼ã‚¿/ãƒªãƒªãƒ¼ã‚¹åŒæ–¹ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ã§å¯¾è±¡ exe ã® URL ã‚’æŠ½å‡ºã—ã€
-    // æœ€åˆã«è¦‹ã¤ã‹ã£ãŸã‚‚ã®ã‚’è¿”ã™ï¼ˆæ—¢å­˜ä»•æ§˜ï¼‰ã€‚
+    // ŒöŠJƒy[ƒW‚ğæ“¾‚µAƒx[ƒ^/ƒŠƒŠ[ƒX‘o•û‚Ìƒpƒ^[ƒ“‚Å‘ÎÛ exe ‚Ì URL ‚ğ’Šo‚µA
+    // Å‰‚ÉŒ©‚Â‚©‚Á‚½‚à‚Ì‚ğ•Ô‚·iŠù‘¶d—ljB
     static string GetTargetExecutableUrl()
     {
         using (HttpClient client = new HttpClient())
         {
             string htmlContent = client.GetStringAsync(HidemaruPageUrl).Result;
             htmlContent = StripHtmlComments(htmlContent);
-            Console.WriteLine("Webãƒšãƒ¼ã‚¸ã®å–å¾—ãŒå®Œäº†ã—ã¾ã—ãŸã€‚");
+            Console.WriteLine("Webƒy[ƒW‚Ìæ“¾‚ªŠ®—¹‚µ‚Ü‚µ‚½B");
 
             var urls = new List<string>();
             urls.AddRange(ExtractAbsoluteUrls(htmlContent, betaExePattern, BaseSoftwareUri));
@@ -39,19 +39,19 @@ public partial class Program
 
             if (urls.Count == 0)
             {
-                throw new Exception("å¯¾è±¡ã®æ­£è¦è¡¨ç¾ã«ãƒãƒƒãƒã™ã‚‹EXEã¯å­˜åœ¨ã—ã¾ã›ã‚“ã§ã—ãŸã€‚");
+                throw new Exception("‘ÎÛ‚Ì³‹K•\Œ»‚Éƒ}ƒbƒ`‚·‚éEXE‚Í‘¶İ‚µ‚Ü‚¹‚ñ‚Å‚µ‚½B");
             }
 
             return urls[0];
         }
     }
 
-    // æŒ‡å®šãƒ‘ã‚¿ãƒ¼ãƒ³ã§ HTML ã‹ã‚‰ç›¸å¯¾ãƒ‘ã‚¹ã‚’æŠ½å‡ºã—ã€åŸºåº•URLã¨çµåˆã—ãŸçµ¶å¯¾URLã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¿”ã™ã€‚
-    // æœŸå¾…ä»•æ§˜: ç¬¬1ã‚­ãƒ£ãƒ—ãƒãƒ£ã‚°ãƒ«ãƒ¼ãƒ—ãŒç›¸å¯¾ãƒ‘ã‚¹ã§ã‚ã‚‹ã“ã¨ã€‚
+    // w’èƒpƒ^[ƒ“‚Å HTML ‚©‚ç‘Š‘ÎƒpƒX‚ğ’Šo‚µAŠî’êURL‚ÆŒ‹‡‚µ‚½â‘ÎURLƒRƒŒƒNƒVƒ‡ƒ“‚ğ•Ô‚·B
+    // Šú‘Òd—l: ‘æ1ƒLƒƒƒvƒ`ƒƒƒOƒ‹[ƒv‚ª‘Š‘ÎƒpƒX‚Å‚ ‚é‚±‚ÆB
     private static IEnumerable<string> ExtractAbsoluteUrls(string htmlContent, string pattern, Uri baseUri)
     {
         MatchCollection matches = Regex.Matches(htmlContent, pattern);
-        Console.WriteLine("æ­£è¦è¡¨ç¾:" + pattern);
+        Console.WriteLine("³‹K•\Œ»:" + pattern);
 
         List<string> found = new List<string>(matches.Count);
         foreach (Match match in matches)
@@ -63,13 +63,13 @@ public partial class Program
         return found;
     }
 
-    // æŒ‡å®š URL ã‹ã‚‰ãƒ­ãƒ¼ã‚«ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã¸ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ã€‚å®Œäº†æ™‚ã«é€²æ—ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºåŠ›ã€‚
+    // w’è URL ‚©‚çƒ[ƒJƒ‹ƒtƒ@ƒCƒ‹‚Öƒ_ƒEƒ“ƒ[ƒh‚·‚éBŠ®—¹‚Éi’»ƒƒbƒZ[ƒW‚ğo—ÍB
     private static void DownloadFileTo(string url, string filename)
     {
         using (WebClient webClient = new WebClient())
         {
             webClient.DownloadFile(url, filename);
-            Console.WriteLine($"ãƒ•ã‚¡ã‚¤ãƒ« '{filename}' ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¾ã—ãŸã€‚");
+            Console.WriteLine($"ƒtƒ@ƒCƒ‹ '{filename}' ‚ğƒ_ƒEƒ“ƒ[ƒh‚µ‚Ü‚µ‚½B");
         }
     }
 }
